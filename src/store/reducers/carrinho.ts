@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ProdutoType } from '../../App'
-import { Produto } from '../../components/Produto/styles'
+import { Produto as ProdutoType } from '../../App'
 
 type CarrinhoState = {
   itens: ProdutoType[]
+  favorito: ProdutoType[]
 }
 const initialState: CarrinhoState = {
-  itens: []
+  itens: [],
+  favorito: []
 }
 
 const carrinhoSlice = createSlice({
@@ -16,7 +17,7 @@ const carrinhoSlice = createSlice({
     adicionarAoCarrinho: (state, action: PayloadAction<ProdutoType>) => {
       const produto = action.payload
 
-      if (state.itens.find((produto) => produto.id === produto.id)) {
+      if (state.itens.find((itens) => itens.id === produto.id)) {
         alert('Produto já adicionado')
       } else {
         state.itens.push(produto)
@@ -24,29 +25,17 @@ const carrinhoSlice = createSlice({
     },
     adicionarAoFavorito: (state, action: PayloadAction<ProdutoType>) => {
       const favorito = action.payload
+      const produtoFavorito = state.favorito.find((p) => p.id === favorito.id)
 
-      if (state.itens.find((favorito) => favorito.id === favorito.id)){
-        const favoritosSemProduto = favorito.filter((p) => p.id !== Produto.id)
-
-
-  } else {
-
-  }
+      if (produtoFavorito) {
+        state.favorito = state.favorito.filter((p) => p.id !== favorito.id)
+      } else {
+        state.favorito.push(favorito)
       }
     }
-
-
   }
 })
 
-function favoritar(produto: Produto) {
-  if (favoritos.find((p) => p.id === produto.id)) {
-    const favoritosSemProduto = favoritos.filter((p) => p.id !== produto.id)
-    setFavoritos(favoritosSemProduto)
-  } else {
-    setFavoritos([...favoritos, produto])
-  }
-}
-
-export const { adicionarAoCarrinho } = carrinhoSlice.actions
+export const { adicionarAoCarrinho, adicionarAoFavorito } =
+  carrinhoSlice.actions
 export default carrinhoSlice.reducer
