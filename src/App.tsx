@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Header from './components/Header'
 import Produtos from './containers/Produtos'
 import { GlobalStyle } from './styles'
@@ -25,10 +25,10 @@ function App() {
       <div className="container">
         <Header />
         <Produtos
+          produtos={produtos}
+          favoritos={produtos}
           adicionarAoFavorito={adicionarAoFavorito}
           adicionarAoCarrinho={adicionarAoCarrinho}
-          produtos={[]}
-          favoritos={[]}
         />
       </div>
     </Provider>

@@ -6,14 +6,21 @@ import {
   adicionarAoFavorito,
   adicionarAoCarrinho
 } from '../../store/reducers/carrinho'
+import { useGetItensQuery } from '../../service/api'
+
+type Props = {
+  produto: ProdutoType
+  estaNosFavoritos: boolean
+}
 
 export const paraReal = (valor: number) =>
   new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
     valor
   )
 
-const ProdutoComponent = () => {
+const ProdutoComponent = ({ produto, estaNosFavoritos }: Props) => {
   const dispatch = useDispatch()
+
   return (
     <S.Produto>
       <S.Capa>
